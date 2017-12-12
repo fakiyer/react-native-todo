@@ -1,17 +1,23 @@
-import { createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { persistStore, persistCombineReducers } from 'redux-persist';
 import storage from 'redux-persist/es/storage';
+import { createLogger } from 'redux-logger';
 import reducers from '../reducers';
 
-const config = {
-  key: 'root',
-  storage,
-};
+const logger = createLogger({
+  predicate: () => __DEV__,
+});
 
-const reducer = persistCombineReducers(config, reducers);
+const reducer = persistCombineReducers(
+  {
+    key: 'root',
+    storage,
+  },
+  reducers,
+);
 
 export default function configureStore() {
-  const store = createStore(reducer);
+  const store = createStore(reducer, applyMiddleware(logger));
   const persistor = persistStore(store);
 
   return { persistor, store };
