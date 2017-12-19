@@ -11,22 +11,20 @@ const onBeforeLift = () => {
   // take some action before the gate lifts
 };
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <PersistGate
-          loading={
-            <View>
-              <Text>Loading...</Text>
-            </View>
-          }
-          onBeforeLift={onBeforeLift}
-          persistor={persistor}
-        >
-          <Root />
-        </PersistGate>
-      </Provider>
-    );
-  }
+export default function App() {
+  return (
+    <Provider store={store}>
+      <PersistGate
+        loading={
+          <View>
+            <Text>Loading...</Text>
+          </View>
+        }
+        onBeforeLift={onBeforeLift}
+        persistor={persistor}
+      >
+        <Root />
+      </PersistGate>
+    </Provider>
+  );
 }
