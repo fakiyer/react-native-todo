@@ -1,5 +1,6 @@
 import React from 'react';
 import { FlatList, StyleSheet, Text, TextInput, View } from 'react-native';
+import { CheckBox } from 'react-native-elements';
 
 const styles = StyleSheet.create({
   container: {
@@ -17,12 +18,20 @@ export default class Todos extends React.PureComponent {
   constructor(props) {
     super(props);
     this.onEndEditing = this.onEndEditing.bind(this);
+    this.onIconPress = this.onIconPress.bind(this);
   }
 
   onEndEditing(e) {
     const { addTodo } = this.props;
 
     addTodo(e.nativeEvent.text);
+  }
+
+  onIconPress(id) {
+    const { completeTodo, deleteTodo } = this.props;
+
+    completeTodo(id);
+    setTimeout(() => deleteTodo(id), 200);
   }
 
   render() {
@@ -39,7 +48,11 @@ export default class Todos extends React.PureComponent {
           data={items.length > 0 ? items : undefined}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
-            <Text style={styles.item}>{item.text}</Text>
+            <CheckBox
+              title={item.text}
+              checked={item.completed}
+              onIconPress={() => this.onIconPress(item.id)}
+            />
           )}
         />
       </View>

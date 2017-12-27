@@ -1,8 +1,16 @@
 import * as types from '../constants/ActionTypes';
 
-const addTodo = text => ({
+export const addTodo = text => ({
   type: types.ADD_TODO,
-  item: { id: new Date().getTime(), text },
+  item: { id: new Date().getTime(), completed: false, text },
 });
 
-export default addTodo;
+export const completeTodo = id => ({
+  type: types.COMPLETE_TODO,
+  id,
+});
+
+export const deleteTodo = id => ({
+  type: types.DELETE_TODO,
+  id,
+});
