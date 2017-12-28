@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text, TextInput, View } from 'react-native';
+import { FlatList, StyleSheet, TextInput, View } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 
 const styles = StyleSheet.create({
@@ -11,6 +11,13 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 18,
     height: 44,
+  },
+  completeContainer: {
+    backgroundColor: '#f0f0f0',
+  },
+  completeText: {
+    color: '#c0c0c0',
+    textDecorationLine: 'line-through',
   },
 });
 
@@ -31,7 +38,7 @@ export default class Todos extends React.PureComponent {
     const { completeTodo, deleteTodo } = this.props;
 
     completeTodo(id);
-    setTimeout(() => deleteTodo(id), 200);
+    setTimeout(() => deleteTodo(id), 300);
   }
 
   render() {
@@ -51,6 +58,9 @@ export default class Todos extends React.PureComponent {
             <CheckBox
               title={item.text}
               checked={item.completed}
+              checkedColor="gray"
+              containerStyle={item.completed ? styles.completeContainer : ''}
+              textStyle={item.completed ? styles.completeText : ''}
               onIconPress={() => this.onIconPress(item.id)}
             />
           )}
