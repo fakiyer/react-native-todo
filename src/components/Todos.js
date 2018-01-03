@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, StyleSheet, TextInput, View } from 'react-native';
+import { Animated, FlatList, StyleSheet, TextInput, View } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 
 const styles = StyleSheet.create({
@@ -26,6 +26,7 @@ export default class Todos extends React.PureComponent {
     super(props);
     this.onEndEditing = this.onEndEditing.bind(this);
     this.onIconPress = this.onIconPress.bind(this);
+    this.animatedValue = new Animated.Value(1);
   }
 
   onEndEditing(e) {
@@ -38,6 +39,10 @@ export default class Todos extends React.PureComponent {
     const { completeTodo, deleteTodo } = this.props;
 
     completeTodo(id);
+    Animated.timing(this.animatedValue, {
+      toValue: 0,
+      duration: 300,
+    }).start();
     setTimeout(() => deleteTodo(id), 300);
   }
 
@@ -55,14 +60,16 @@ export default class Todos extends React.PureComponent {
           data={items.length > 0 ? items : undefined}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
-            <CheckBox
-              title={item.text}
-              checked={item.completed}
-              checkedColor="gray"
-              containerStyle={item.completed ? styles.completeContainer : ''}
-              textStyle={item.completed ? styles.completeText : ''}
-              onIconPress={() => this.onIconPress(item.id)}
-            />
+            <Animated.View style={{ opacity: this.animatedValue }}>
+              <CheckBox
+                title={item.text}
+                checked={item.completed}
+                checkedColor="gray"
+                containerStyle={item.completed ? styles.completeContainer : ''}
+                textStyle={item.completed ? styles.completeText : ''}
+                onIconPress={() => this.onIconPress(item.id)}
+              />
+            </Animated.View>
           )}
         />
       </View>
