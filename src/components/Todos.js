@@ -1,11 +1,11 @@
 import React from 'react';
-import { Animated, FlatList, StyleSheet, TextInput, View } from 'react-native';
+import { Animated, FlatList, StyleSheet, View } from 'react-native';
+import { FormInput, Header } from 'react-native-elements';
 import Todo from './Todo';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 22,
   },
 });
 
@@ -20,6 +20,7 @@ export default class Todos extends React.PureComponent {
     const { addTodo } = this.props;
 
     addTodo(e.nativeEvent.text);
+    this.formInput.clearText();
   }
 
   render() {
@@ -28,8 +29,14 @@ export default class Todos extends React.PureComponent {
 
     return (
       <View style={styles.container}>
-        <TextInput
-          style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+        <Header
+          centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
+        />
+        <FormInput
+          ref={(ref) => {
+            this.formInput = ref;
+          }}
+          placeholder="Add Todo..."
           onEndEditing={this.onEndEditing}
         />
         <FlatList
