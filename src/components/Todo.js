@@ -30,6 +30,12 @@ export default class Todo extends React.PureComponent {
     setTimeout(() => deleteTodo(id), 300);
   }
 
+  onPress(id) {
+    const { openEditModal } = this.props;
+
+    openEditModal(id);
+  }
+
   render() {
     const { item } = this.props;
 
@@ -42,6 +48,7 @@ export default class Todo extends React.PureComponent {
           containerStyle={item.completed ? styles.completeContainer : ''}
           textStyle={item.completed ? styles.completeText : ''}
           onIconPress={() => this.onIconPress(item.id)}
+          onPress={() => this.onPress(item.id)}
         />
       </Animated.View>
     );
