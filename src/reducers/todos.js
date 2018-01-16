@@ -36,7 +36,8 @@ export default function todos(state = initialState, action) {
       return {
         ...state,
         items: state.items.map(
-          item => (item.id === action.id ? { ...item, text: action.text } : item),
+          item =>
+            item.id === action.id ? { ...item, text: action.text } : item,
         ),
       };
     case types.OPEN_EDIT_MODAL:
