@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import { Provider } from 'react-redux';
+import Spinner from 'react-native-loading-spinner-overlay';
 import configureStore from './src/store/configureStore';
 import Root from './src/Root';
 
@@ -16,8 +17,8 @@ export default function App() {
     <Provider store={store}>
       <PersistGate
         loading={
-          <View>
-            <Text>Loading...</Text>
+          <View style={{ flex: 1 }}>
+            <Spinner visible textStyle={{ color: '#FFF' }} />
           </View>
         }
         onBeforeLift={onBeforeLift}
