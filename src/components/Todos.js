@@ -8,15 +8,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  button: {
-    backgroundColor: 'lightblue',
-    padding: 12,
-    margin: 16,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 4,
-    borderColor: 'rgba(0, 0, 0, 0.1)',
-  },
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -25,7 +16,6 @@ const styles = StyleSheet.create({
   modalContent: {
     backgroundColor: 'white',
     justifyContent: 'center',
-    alignItems: 'center',
     borderRadius: 4,
     borderColor: 'rgba(0, 0, 0, 0.1)',
   },
