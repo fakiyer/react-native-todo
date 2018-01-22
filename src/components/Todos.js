@@ -1,6 +1,6 @@
 import React from 'react';
 import { Animated, FlatList, StyleSheet, View } from 'react-native';
-import { FormInput, Header } from 'react-native-elements';
+import { Button, FormInput, Header } from 'react-native-elements';
 import Modal from 'react-native-modal';
 import Todo from './Todo';
 
@@ -45,15 +45,19 @@ export default class Todos extends React.PureComponent {
     closeEditModal(id);
   }
 
+  onCancel(id) {
+    const { closeEditModal } = this.props;
+
+    closeEditModal(id);
+  }
+
   render() {
     const { editingTodo, todos } = this.props;
     const { items, openEditModal } = todos;
 
     return (
       <View style={styles.container}>
-        <Header
-          centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
-        />
+        <Header centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }} />
         <FormInput
           ref={ref => {
             this.formInput = ref;
@@ -69,8 +73,8 @@ export default class Todos extends React.PureComponent {
         {openEditModal && (
           <Modal
             isVisible={openEditModal}
-            onBackButtonPress={() => this.onClose(editingTodo.id)}
-            onBackdropPress={() => this.onClose(editingTodo.id)}
+            onBackButtonPress={() => this.onCancel(editingTodo.id)}
+            onBackdropPress={() => this.onCancel(editingTodo.id)}
           >
             <View style={styles.modalContent}>
               <FormInput
@@ -80,6 +84,20 @@ export default class Todos extends React.PureComponent {
                 onEndEditing={() => this.onClose(editingTodo.id)}
                 defaultValue={editingTodo.text}
               />
+              <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+                <Button
+                  title="cancel"
+                  transparent
+                  color="gray"
+                  onPress={() => this.onCancel(editingTodo.id)}
+                />
+                <Button
+                  title="save"
+                  transparent
+                  color="gray"
+                  onPress={() => this.onClose(editingTodo.id)}
+                />
+              </View>
             </View>
           </Modal>
         )}
