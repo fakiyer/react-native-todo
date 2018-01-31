@@ -1,6 +1,6 @@
 import React from 'react';
 import { Animated, FlatList, StyleSheet, View } from 'react-native';
-import { Button, FormInput, Header } from 'react-native-elements';
+import { Button, FormInput, Header, Icon, Text } from 'react-native-elements';
 import Modal from 'react-native-modal';
 import Todo from './Todo';
 
@@ -57,19 +57,31 @@ export default class Todos extends React.PureComponent {
 
     return (
       <View style={styles.container}>
-        <Header centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }} />
-        <FormInput
-          ref={ref => {
-            this.formInput = ref;
-          }}
-          placeholder="Add Todo..."
-          onEndEditing={this.onEndEditing}
-        />
-        <FlatList
-          data={items.length > 0 ? items : undefined}
-          keyExtractor={item => item.id}
-          renderItem={({ item }) => <Todo {...this.props} item={item} />}
-        />
+        <Header centerComponent={{ text: 'Todo', style: { color: '#fff' } }} />
+        <View style={{ padding: 5 }}>
+          <FormInput
+            ref={ref => {
+              this.formInput = ref;
+            }}
+            placeholder="Add Todo..."
+            onEndEditing={this.onEndEditing}
+            inputStyle={{ fontSize: 18 }}
+          />
+        </View>
+        {items.length > 0 ? (
+          <FlatList
+            data={items.length > 0 ? items : undefined}
+            keyExtractor={item => item.id}
+            renderItem={({ item }) => <Todo {...this.props} item={item} />}
+          />
+        ) : (
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Icon name="check" size={80} color="rgba(0,0,0,.4)" />
+            <Text h3 style={{ color: 'rgba(0,0,0,.4)' }}>
+              Nothing to do
+            </Text>
+          </View>
+        )}
         {openEditModal && (
           <Modal
             isVisible={openEditModal}
