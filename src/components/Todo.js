@@ -1,6 +1,9 @@
+// @flow
+
 import React from 'react';
 import { Animated, StyleSheet } from 'react-native';
 import { CheckBox } from 'react-native-elements';
+import type { Id, Item } from '../types/todos';
 
 const styles = StyleSheet.create({
   completeContainer: {
@@ -12,14 +15,21 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class Todo extends React.PureComponent {
-  constructor(props) {
+type Props = {
+  item: Item,
+  completeTodo: (id: Id) => void,
+  deleteTodo: (id: Id) => void,
+  openEditModal: (id: Id) => void,
+};
+
+export default class Todo extends React.PureComponent<Props> {
+  constructor(props: Props) {
     super(props);
     this.onIconPress = this.onIconPress.bind(this);
     this.animatedValue = new Animated.Value(1);
   }
 
-  onIconPress(id) {
+  onIconPress(id: Id) {
     const { completeTodo, deleteTodo } = this.props;
 
     completeTodo(id);
@@ -30,11 +40,15 @@ export default class Todo extends React.PureComponent {
     setTimeout(() => deleteTodo(id), 300);
   }
 
-  onPress(id) {
+  onPress(id: Id) {
     const { openEditModal } = this.props;
 
     openEditModal(id);
   }
+
+  onIconPress: Function;
+  animatedValue: Animated.ValueXY;
+  props: Props;
 
   render() {
     const { item } = this.props;
