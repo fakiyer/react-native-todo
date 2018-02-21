@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -13,8 +15,9 @@ import Todos from '../components/Todos';
 
 const TodosContainer = props => <Todos {...props} />;
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const { todos } = state;
+  // TODO: move to selector
   let editingTodo = null;
   if (todos.openEditModal) {
     editingTodo = todos.items.find(item => item.editing);
