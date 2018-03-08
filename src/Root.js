@@ -1,8 +1,8 @@
 // @flow
 
 import React from 'react';
-import TodosContainer from './containers/TodosContainer';
+import MainContainer from './containers/MainContainer';
 
 export default function Root() {
-  return <TodosContainer />;
+  return <MainContainer />;
 }

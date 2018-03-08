@@ -11,9 +11,9 @@ import {
   openEditModal,
   closeEditModal,
 } from '../actions/TodoActions';
-import Todos from '../components/Todos';
+import Main from '../components/Main';
 
-const TodosContainer = props => <Todos {...props} />;
+const MainContainer = props => <Main {...props} />;
 
 const mapStateToProps = (state) => {
   const { todos } = state;
@@ -36,4 +36,4 @@ export default connect(mapStateToProps, {
   editTodo,
   openEditModal,
   closeEditModal,
-})(TodosContainer);
+})(MainContainer);

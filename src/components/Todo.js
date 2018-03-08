@@ -23,12 +23,6 @@ type Props = {
 };
 
 export default class Todo extends React.PureComponent<Props> {
-  constructor(props: Props) {
-    super(props);
-    this.onIconPress = this.onIconPress.bind(this);
-    this.animatedValue = new Animated.Value(1);
-  }
-
   onIconPress(id: Id) {
     const { completeTodo, deleteTodo } = this.props;
 
@@ -48,7 +42,7 @@ export default class Todo extends React.PureComponent<Props> {
 
   onIconPress: Function;
   animatedValue: Animated.ValueXY;
-  props: Props;
+  animatedValue = new Animated.Value(1);
 
   render() {
     const { item } = this.props;
